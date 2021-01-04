@@ -14,11 +14,6 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('admin');
-        } else if ($this->isGranted('ROLE_USER')) {
-            return $this->redirectToRoute('car_list');
-        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user

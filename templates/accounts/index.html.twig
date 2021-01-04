@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All Accounts{% endblock %}
+
+{% block body %}
+    <h1>All Accounts</h1>
+  {% if accounts %}
+    <table id="accounts" class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Email</th>
+          <th>User Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for account in accounts %}
+          <tr>
+            <td>{{ account.id }}</td>
+            <td>{{ account.email }}
+              {% if app.user.id == account.id %}
+                (me)
+              {% endif %}
+            </td>
+            <td>{{ account.roles[0] }}</td>
+            <td>
+              <a href="/admin/account/edit/{{ account.id }}" class="btn btn-light">Edit</a>
+              {% if app.user.id != account.id %}
+              <a href="/admin/account/delete/{{ account.id }}" class="btn btn-danger delete-account" data-id="{{ account.id }}">Delete</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="mt-4">No accounts to display</p>
+  {% endif %}
+{% endblock %}

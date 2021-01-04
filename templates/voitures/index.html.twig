@@ -1,59 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cars Agency{% endblock %}
+{% block title %}Cars Agency
+{% endblock %}
 
 {% block body %}
-  {% if voitures %}
-    <table id="voitures" class="table table-striped">
-      <thead>
-        <tr>
-          <th>Car Title</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for voiture in voitures %}
-          <tr>
-            <td>{{ voiture.title }}</td>
-            <td>
-              <a href="/voiture/{{ voiture.id }}" class="btn btn-dark">Show</a>
-              <a href="/voiture/edit/{{ voiture.id }}" class="btn btn-light">Edit</a>
-              <a href="/voiture/delete/{{ voiture.id }}" class="btn btn-danger delete-voiture" data-id="{{ voiture.id }}">Delete</a>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>No voitures to display</p>
-  {% endif %}
+	<div style="display: flex;justify-content: space-between;width: 100%;">
+		<h1>All Cars</h1>
+		<span/>
+		{% if app.user.roles[0] == "ROLE_ADMIN" %}
+			<a href="/admin/car/new">
+				<button>+ Add Car</button>
+			</a>
+		{% endif %}
+	</div>
+	{% if voitures %}
+		{% if app.user.roles[0] == "ROLE_ADMIN" %}
+			<table id="voitures" class="table table-striped">
+				<thead>
+					<tr>
+						<th>Mark</th>
+						<th>Matricule</th>
+						<th>Color</th>
+						<th>Places</th>
+						<th>Availability</th>
+						<th>Agency</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for voiture in voitures %}
+						<tr>
+							<td>{{ voiture.marque }}</td>
+							<td>{{ voiture.matricule }}</td>
+							<td>{{ voiture.couleur }}</td>
+							<td>{{ voiture.places }}</td>
+							{% if voiture.disponibite == 0 %}
+								<td>Not</td>
+							{% else %}
+								<td>Yes</td>
+							{% endif %}
+							<td>{{ voiture.idAgence }}</td>
+							<td>
+								<a href="/admin/car/{{ voiture.id }}" class="btn btn-dark">Show</a>
+								<a href="/admin/car/edit/{{ voiture.id }}" class="btn btn-light">Edit</a>
+								<a href="/admin/car/delete/{{ voiture.id }}" class="btn btn-danger delete-voiture" data-id="{{ voiture.id }}">Delete</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</tbody>
+		</table>
+	{% else %}
+		<ul>
+			{% for voiture in voitures %}
+				<li>{{voiture.marque}}
+					{{voiture.couleur}}
+					Voiture
+					{{voiture.description}}
+					{{voiture.places}}
+					Places
+					{% if voiture.disponibite == 1 %}
+						<a href="/agent/cars/louer/{{voiture.id}}" style="font-size: 16px">Louer</a>
+					{% else %}
+						<a href="/agent/cars/rendre/{{voiture.id}}" style="font-size: 16px">Rendre</a>
+					{% endif %}
+				</li>
+			</ul>
+		{% endfor %}
+	{% endif %}
 
-  {% if users %}
-    <table id="voitures" class="table table-striped">
-      <thead>
-        <tr>
-          <th>User email</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for user in users %}
-          <tr>
-            <td>{{ user.email }}</td>
-            <td>
-              <a href="/voiture/{{ user.id }}" class="btn btn-dark">Show</a>
-              <a href="/voiture/edit/{{ user.id }}" class="btn btn-light">Edit</a>
-              <a href="/voiture/delete/{{ user.id }}" class="btn btn-danger delete-voiture" data-id="{{ user.id }}">Delete</a>
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% else %}
-    <p>No users to display</p>
-  {% endif %}
-
-{% endblock %}
-
-{% block javascripts %}
-  <script src="/js/main.js"></script>
-{% endblock %}
+{% else %}
+	<p class="mt-4">No cars to display</p>
+{% endif %}{% endblock %}{% block javascripts %}
+<script src="/js/main.js"></script>{% endblock %}

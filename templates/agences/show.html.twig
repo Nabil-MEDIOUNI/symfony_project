@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Agency details
+{% endblock %}
+
+{% block body %}
+	<h1>Nom:
+		{{ agence.nom }}</h1>
+	<p>Tel:
+		{{ agence.phone }}</p>
+	<p>Adresse:
+		{{ agence.adresse }}</p>
+	<p>Ville:
+		{{ agence.ville }}</p>
+	<hr>
+	<a href="/dashboard">Go Back</a>
+{% endblock %}

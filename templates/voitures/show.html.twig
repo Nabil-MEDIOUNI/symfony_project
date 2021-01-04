@@ -1,10 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ article.title }}{% endblock %}
+{% block title %}
+	Car details
+{% endblock %}
 
 {% block body %}
- <h1>{{ article.title }}</h1>
- <p>{{ article.body }}</p>
- <hr>
- <a href="/">Go Back</a>
+	<h1>{{ car.marque }}</h1>
+    <p>Color: {{ car.couleur }}</p>
+    <p>Carburant: {{ car.carburant }}</p>
+    <p>Places: {{ car.places }}</p>
+    <p>Description: {{ car.description }}</p>
+	<hr>
+	<a href="/admin/cars">Go Back</a>
 {% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All Clients{% endblock %}
+
+{% block body %}
+    <div style="display: flex;justify-content: space-between;width: 100%;">
+		<h1>All Clients</h1>
+		<span/>
+		{% if app.user.roles[0] == "ROLE_AGENT" %}
+      <a href="/agent/client/new">
+        <button>+ Add Client</button>
+      </a>
+		{% endif %}
+	</div>
+  {% if clients %}
+    <table id="clients" class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>N°Permis</th>
+          <th>Ville</th>
+          <th>Tel</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for client in clients %}
+          <tr>
+            <td>{{ client.id }}</td>
+            <td>{{ client.nom }}</td>
+            <td>{{ client.npermis }}</td>
+            <td>{{ client.ville }}</td>
+            <td>{{ client.tel }}</td>
+            <td>
+              <a href="/agent/client/{{ client.id }}" class="btn btn-black">Show</a>
+              <a href="/agent/client/edit/{{ client.id }}" class="btn btn-light">Edit</a>
+              <a href="/agent/client/delete/{{ client.id }}" class="btn btn-danger delete-client" data-id="{{ client.id }}">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="mt-4">No clients to display</p>
+  {% endif %}
+{% endblock %}

@@ -73,8 +73,7 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_AGENT';
 
         return array_unique($roles);
     }
@@ -103,7 +102,7 @@ class User implements UserInterface
 
     public function addRoles(string $roles): self
     {
-        if (in_array($roles, ['ROLE_USER', 'ROLE_ADMIN'])) {
+        if (in_array($roles, ['ROLE_AGENT', 'ROLE_ADMIN'])) {
             $this->roles[] = $roles;
         } else {
             throw new \LogicException('Enter a valid permission!');

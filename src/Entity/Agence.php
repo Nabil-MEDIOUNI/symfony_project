@@ -25,7 +25,7 @@ class Agence
     /**
      * @ORM\Column(type="integer")
      */
-    private $tel_agence;
+    private $phone;
 
     /**
      * @ORM\Column(type="string", length=80)
@@ -54,14 +54,14 @@ class Agence
         return $this;
     }
 
-    public function getTelAgence(): ?int
+    public function getPhone(): ?int
     {
-        return $this->tel_agence;
+        return $this->phone;
     }
 
-    public function setTelAgence(int $tel_agence): self
+    public function setPhone(int $phone): self
     {
-        $this->tel_agence = $tel_agence;
+        $this->phone = $phone;
 
         return $this;
     }

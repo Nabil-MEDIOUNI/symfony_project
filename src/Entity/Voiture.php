@@ -40,7 +40,7 @@ class Voiture
     /**
      * @ORM\Column(type="integer")
      */
-    private $NbrPlace;
+    private $places;
 
     /**
      * @ORM\Column(type="string", length=300)
@@ -115,14 +115,14 @@ class Voiture
         return $this;
     }
 
-    public function getNbrPlace(): ?int
+    public function getPlaces(): ?int
     {
-        return $this->NbrPlace;
+        return $this->places;
     }
 
-    public function setNbrPlace(int $NbrPlace): self
+    public function setPlaces(int $places): self
     {
-        $this->NbrPlace = $NbrPlace;
+        $this->places = $places;
 
         return $this;
     }

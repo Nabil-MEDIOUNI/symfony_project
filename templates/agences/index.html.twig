@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Agencies{% endblock %}
+
+{% block body %}
+  <div style="display: flex;justify-content: space-between;width: 100%;">
+    <h1>All Agencies</h1>
+    <span />
+    <a href="/admin/agence/new"><button>+ Add Agency</button></a>
+  </div>
+  {% if agences %}
+    <table id="agences" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Tel</th>
+          <th>Adresse</th>
+          <th>Ville</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for agence in agences %}
+          <tr>
+            <td>{{ agence.nom }}</td>
+            <td>{{ agence.phone }}</td>
+            <td>{{ agence.adresse }}</td>
+            <td>{{ agence.ville }}</td>
+            <td>
+              <a href="/admin/agence/{{ agence.id }}" class="btn btn-black" data-id="{{ agence.id }}">Show</a>
+              <a href="/admin/agence/edit/{{ agence.id }}" class="btn btn-light">Edit</a>
+              <a href="/admin/agence/delete/{{ agence.id }}" class="btn btn-danger delete-agence" data-id="{{ agence.id }}">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="mt-4">No agencies to display</p>
+  {% endif %}
+{% endblock %}

@@ -25,7 +25,12 @@ class Contrat
     /**
      * @ORM\Column(type="datetime")
      */
-    private $dateRetour;
+    private $date_retour;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date_depart;
 
     /**
      * @ORM\Column(type="integer")
@@ -54,14 +59,26 @@ class Contrat
         return $this;
     }
 
-    public function getDateRetour(): ?\DateTimeInterface
+    public function getdate_retour(): ?\DateTimeInterface
     {
-        return $this->dateRetour;
+        return $this->date_retour;
     }
 
-    public function setDateRetour(\DateTimeInterface $dateRetour): self
+    public function setdate_retour(\DateTimeInterface $date_retour): self
     {
-        $this->dateRetour = $dateRetour;
+        $this->date_retour = $date_retour;
+
+        return $this;
+    }
+
+    public function getdate_depart(): ?\DateTimeInterface
+    {
+        return $this->date_depart;
+    }
+
+    public function setdate_depart(\DateTimeInterface $date_depart): self
+    {
+        $this->date_depart = $date_depart;
 
         return $this;
     }
