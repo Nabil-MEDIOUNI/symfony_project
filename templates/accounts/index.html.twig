@@ -3,7 +3,15 @@
 {% block title %}All Accounts{% endblock %}
 
 {% block body %}
-    <h1>All Accounts</h1>
+    <div style="display: flex;justify-content: space-between;width: 100%;">
+		<h1>All Accounts</h1>
+		<span/>
+		{% if app.user.roles[0] == "ROLE_ADMIN" %}
+      <a href="/admin/user/new">
+        <button>+ Add User</button>
+      </a>
+		{% endif %}
+	</div>
   {% if accounts %}
     <table id="accounts" class="table table-striped">
       <thead>
@@ -24,6 +32,7 @@
             </td>
             <td>{{ account.roles[0] }}</td>
             <td>
+              <a href="/admin/account/{{ account.id }}" class="btn btn-black">Show</a>
               <a href="/admin/account/edit/{{ account.id }}" class="btn btn-light">Edit</a>
               {% if app.user.id != account.id %}
               <a href="/admin/account/delete/{{ account.id }}" class="btn btn-danger delete-account" data-id="{{ account.id }}">Delete</a>
