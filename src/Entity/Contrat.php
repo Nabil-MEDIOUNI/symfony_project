@@ -25,20 +25,20 @@ class Contrat
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_retour;
+    private $dateRetour;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_depart;
+    private $dateDepart;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $idClient;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $idVoiture;
 
@@ -59,48 +59,48 @@ class Contrat
         return $this;
     }
 
-    public function getdate_retour(): ?\DateTimeInterface
+    public function getdateRetour(): ?\DateTimeInterface
     {
-        return $this->date_retour;
+        return $this->dateRetour;
     }
 
-    public function setdate_retour(\DateTimeInterface $date_retour): self
+    public function setdateRetour(\DateTimeInterface $dateRetour): self
     {
-        $this->date_retour = $date_retour;
+        $this->dateRetour = $dateRetour;
 
         return $this;
     }
 
-    public function getdate_depart(): ?\DateTimeInterface
+    public function getdateDepart(): ?\DateTimeInterface
     {
-        return $this->date_depart;
+        return $this->dateDepart;
     }
 
-    public function setdate_depart(\DateTimeInterface $date_depart): self
+    public function setdateDepart(\DateTimeInterface $dateDepart): self
     {
-        $this->date_depart = $date_depart;
+        $this->dateDepart = $dateDepart;
 
         return $this;
     }
 
-    public function getIdClient(): ?int
+    public function getIdClient(): ?string
     {
         return $this->idClient;
     }
 
-    public function setIdClient(int $idClient): self
+    public function setIdClient(string $idClient): self
     {
         $this->idClient = $idClient;
 
         return $this;
     }
 
-    public function getIdVoiture(): ?int
+    public function getIdVoiture(): ?string
     {
         return $this->idVoiture;
     }
 
-    public function setIdVoiture(int $idVoiture): self
+    public function setIdVoiture(string $idVoiture): self
     {
         $this->idVoiture = $idVoiture;
 

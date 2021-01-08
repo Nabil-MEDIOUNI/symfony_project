@@ -19,7 +19,7 @@
           <th>#</th>
           <th>type</th>
           <th>client</th>
-          <th>voiture</th>
+          <th>car matricule</th>
         </tr>
       </thead>
       <tbody>
@@ -27,11 +27,10 @@
           <tr>
             <td>{{ contrat.id }}</td>
             <td>{{ contrat.type }}</td>
-            <td>{{ contrat.client }}</td>
-            <td>{{ contrat.voiture }}</td>
+            <td>{{ contrat.idclient }}</td>
+            <td>{{ contrat.idvoiture }}</td>
             <td>
               <a href="/agent/contrat/{{ contrat.id }}" class="btn btn-black">Show</a>
-              <a href="/agent/contrat/edit/{{ contrat.id }}" class="btn btn-light">Edit</a>
               <a href="/agent/contrat/delete/{{ contrat.id }}" class="btn btn-danger delete-contrat" data-id="{{ contrat.id }}">Delete</a>
             </td>
           </tr>

@@ -66,7 +66,10 @@ class Voiture
     {
         return $this->id;
     }
-
+    public function __toString()
+    {
+        return $this->Matricule;
+    }
     public function getMatricule(): ?string
     {
         return $this->Matricule;

@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Voiture;
 use App\Entity\Agence;
-
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -50,7 +51,6 @@ class VoitureController extends AbstractController
   public function new(Request $request)
   {
     $car = new Voiture();
-    $agences = $this->getDoctrine()->getRepository(Agence::class)->findAll();
 
     $form = $this->createFormBuilder($car)
       ->add('marque', TextType::class, array('attr' => array('class' => 'form-control')))
@@ -66,12 +66,17 @@ class VoitureController extends AbstractController
         ],
         'attr' => array('class' => 'form-control')
       ])
-      ->add('id_agence', ChoiceType::class, [
-        'choices'  => [
-          'agence 1' => 1,
-          'agence 2' => 2,
-        ],
-        'attr' => array('class' => 'form-control')
+      ->add('id_agence', EntityType::class, [
+        'placeholder' => 'Choose a agency',
+        'required' => true,
+        'class' => Agence::class,
+        'choice_attr' => function (Agence $agence, $key, $value) {
+          return [
+            'class' => 'custom_class_' . $agence->getNom(),
+            'data-post-title' => $agence->getNom()
+          ];
+        },
+        'attr' => array('class' => 'form-control'),
       ])
       ->add('description', TextareaType::class, array(
         'required' => true,
@@ -87,7 +92,6 @@ class VoitureController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
       $car = $form->getData();
-
       $entityManager = $this->getDoctrine()->getManager();
       $entityManager->persist($car);
       $entityManager->flush();
@@ -120,13 +124,6 @@ class VoitureController extends AbstractController
         'choices'  => [
           'Yes' => true,
           'No' => false,
-        ],
-        'attr' => array('class' => 'form-control')
-      ])
-      ->add('id_agence', ChoiceType::class, [
-        'choices'  => [
-          'agence 1' => 1,
-          'agence 2' => 2,
         ],
         'attr' => array('class' => 'form-control')
       ])

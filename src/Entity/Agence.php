@@ -78,6 +78,11 @@ class Agence
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->Nom;
+    }
+
     public function getVille(): ?string
     {
         return $this->ville;
