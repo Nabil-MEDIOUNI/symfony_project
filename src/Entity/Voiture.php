@@ -50,7 +50,7 @@ class Voiture
     /**
      * @ORM\Column(type="boolean")
      */
-    private $Disponibite;
+    private $Disponibilite;
 
     /**
      * @ORM\Column(type="date")
@@ -142,14 +142,14 @@ class Voiture
         return $this;
     }
 
-    public function getDisponibite(): ?bool
+    public function getDisponibilite(): ?bool
     {
-        return $this->Disponibite;
+        return $this->Disponibilite;
     }
 
-    public function setDisponibite(bool $Disponibite): self
+    public function setDisponibilite(bool $Disponibilite): self
     {
-        $this->Disponibite = $Disponibite;
+        $this->Disponibilite = $Disponibilite;
 
         return $this;
     }

@@ -1,0 +1,37 @@
+<br/>
+<br/>
+{% block body %}
+	{% if factures %}
+		<table id="factures" class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Client</th>
+					<th>Montant</th>
+					<th>Payee</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for facture in factures %}
+					<tr>
+						<td>{{ facture.id }}</td>
+						<td>{{ facture.idClient }}</td>
+						<td>{{ facture.Montant }}dt</td>
+						{% if facture.Payee == 0 %}
+							<td>Not Payed</td>
+						{% else %}
+							<td>Yes</td>
+						{% endif %}
+						{% if facture.Payee == 0 %}
+						<td>
+							<a href="/agent/facture/pay/{{ facture.id }}" class="btn btn-danger delete-contrat" data-id="{{ facture.id }}">Pay</a>
+						</td>
+						{% endif %}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<h1>All Bills Are Payed</h1>
+	{% endif %}
+{% endblock %}

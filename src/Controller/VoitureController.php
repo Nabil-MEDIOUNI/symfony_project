@@ -61,7 +61,7 @@ class VoitureController extends AbstractController
       ->add('carburant', TextType::class, array('attr' => array('class' => 'form-control')))
       ->add('places', IntegerType::class, array('attr' => array('class' => 'form-control')))
       ->add('datemiseencirculation', DateType::class, array('attr' => array('class' => 'form-control')))
-      ->add('disponibite', ChoiceType::class, [
+      ->add('disponibilite', ChoiceType::class, [
         'choices'  => [
           'Yes' => true,
           'No' => false,
@@ -122,7 +122,7 @@ class VoitureController extends AbstractController
       ->add('carburant', TextType::class, array('attr' => array('class' => 'form-control')))
       ->add('places', IntegerType::class, array('attr' => array('class' => 'form-control')))
       ->add('datemiseencirculation', DateType::class, array('attr' => array('class' => 'form-control')))
-      ->add('disponibite', ChoiceType::class, [
+      ->add('disponibilite', ChoiceType::class, [
         'choices'  => [
           'Yes' => true,
           'No' => false,
@@ -196,7 +196,7 @@ class VoitureController extends AbstractController
 
     $form->handleRequest($request);
     $car = $this->getDoctrine()->getRepository(Voiture::class)->find($id);
-    $car->setDisponibite(false);
+    $car->setDisponibilite(false);
     $contrat->setIdVoiture($car->getMatricule());
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->flush();
@@ -223,7 +223,7 @@ class VoitureController extends AbstractController
   public function rendre(Request $request, $id)
   {
     $car = $this->getDoctrine()->getRepository(Voiture::class)->find($id);
-    $car->setDisponibite(true);
+    $car->setDisponibilite(true);
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->flush();
 

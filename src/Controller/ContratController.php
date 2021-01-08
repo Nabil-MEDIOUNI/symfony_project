@@ -92,11 +92,11 @@ class ContratController extends AbstractController
       $car = $this->getDoctrine()->getRepository(Voiture::class)->findOneBy([
         'id' => $form->get('id_voiture')->getData(),
       ]);
-      if($car->getDisponibite() == false){
+      if($car->getDisponibilite() == false){
         return $this->render('errors/index.html.twig', ['error' => 'car selected is not available!', 'href' => '/agent/contrats']);
       }
       else{
-        $car->setDisponibite(false);
+        $car->setDisponibilite(false);
   
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($contrat);

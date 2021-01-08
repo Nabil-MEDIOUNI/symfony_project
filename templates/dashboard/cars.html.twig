@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+{% block body %}
+<br />
+	{% if availableCars %}
+		<table id="availableCars" class="table table-striped">
+			<thead>
+				<tr>
+					<th>Mark</th>
+					<th>Matricule</th>
+					<th>Color</th>
+					<th>Places</th>
+					<th>Availability</th>
+					<th>Agency</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for voiture in availableCars %}
+					<tr>
+						<td>{{ voiture.marque }}</td>
+						<td>{{ voiture.matricule }}</td>
+						<td>{{ voiture.couleur }}</td>
+						<td>{{ voiture.places }}</td>
+						{% if voiture.Disponibilite == 0 %}
+							<td>Not</td>
+						{% else %}
+							<td>Yes</td>
+						{% endif %}
+						<td>{{ voiture.idAgence }}</td>
+						<td>
+							<a href="/admin/car/{{ voiture.id }}" class="btn btn-dark">Show</a>
+							<a href="/admin/car/edit/{{ voiture.id }}" class="btn btn-light">Edit</a>
+							<a href="/admin/car/delete/{{ voiture.id }}" class="btn btn-danger delete-voiture" data-id="{{ voiture.id }}">Delete</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</tbody>
+	</table>
+{% else %}
+	<h1>0 Available Cars Was Found!</h1>
+{% endif %}
+<br />
+<br />
+{% if notAvailableCars %}
+	<table id="notAvailableCars" class="table table-striped">
+		<thead>
+			<tr>
+				<th>Mark</th>
+				<th>Matricule</th>
+				<th>Color</th>
+				<th>Places</th>
+				<th>Availability</th>
+				<th>Agency</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for voiture in notAvailableCars %}
+				<tr>
+					<td>{{ voiture.marque }}</td>
+					<td>{{ voiture.matricule }}</td>
+					<td>{{ voiture.couleur }}</td>
+					<td>{{ voiture.places }}</td>
+					{% if voiture.Disponibilite == 0 %}
+						<td>Not</td>
+					{% else %}
+						<td>Yes</td>
+					{% endif %}
+					<td>{{ voiture.idAgence }}</td>
+					<td>
+						<a href="/admin/car/{{ voiture.id }}" class="btn btn-dark">Show</a>
+						<a href="/admin/car/edit/{{ voiture.id }}" class="btn btn-light">Edit</a>
+						<a href="/admin/car/delete/{{ voiture.id }}" class="btn btn-danger delete-voiture" data-id="{{ voiture.id }}">Delete</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</tbody>
+</table>{% else %}
+<h1>0 Cars To Give Back Was Found!</h1>{% endif %}{% endblock %}
