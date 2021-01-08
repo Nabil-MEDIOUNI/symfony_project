@@ -33,7 +33,7 @@ class Facture
     private $payee;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $idClient;
 
@@ -78,12 +78,12 @@ class Facture
         return $this;
     }
 
-    public function getIdClient(): ?int
+    public function getIdClient(): ?string
     {
         return $this->idClient;
     }
 
-    public function setIdClient(int $idClient): self
+    public function setIdClient(string $idClient): self
     {
         $this->idClient = $idClient;
 

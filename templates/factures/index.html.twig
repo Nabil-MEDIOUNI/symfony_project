@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All Bills
+{% endblock %}
+
+{% block body %}
+	<div style="display: flex;justify-content: space-between;width: 100%;">
+		<h1>All Bills</h1>
+		<span/>
+		{% if app.user.roles[0] == "ROLE_AGENT" %}
+			<a href="/agent/facture/new">
+				<button>+ Add Bill</button>
+			</a>
+		{% endif %}
+	</div>
+	{% if factures %}
+		<table id="factures" class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Client</th>
+					<th>Montant</th>
+					<th>Payee</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for facture in factures %}
+					<tr>
+						<td>{{ facture.id }}</td>
+						<td>{{ facture.idClient }}</td>
+						<td>{{ facture.Montant }}dt</td>
+						{% if facture.Payee == 0 %}
+							<td>Not Payed</td>
+						{% else %}
+							<td>Yes</td>
+						{% endif %}
+						{% if facture.Payee == 0 %}
+						<td>
+							<a href="/agent/facture/pay/{{ facture.id }}" class="btn btn-danger delete-contrat" data-id="{{ facture.id }}">Pay</a>
+						</td>
+						{% endif %}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<p class="mt-4">No bills to display</p>
+	{% endif %}
+{% endblock %}

@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+	{% if contrat %}
 	<h1>Type:
 		{{ contrat.type }}</h1>
 	<p>Client:
@@ -13,4 +14,6 @@
 		{{ contrat.idVoiture }}</p>
 	<hr>
 	<a href="/agent/contrats">Go Back</a>
+	{% endif %}
+
 {% endblock %}

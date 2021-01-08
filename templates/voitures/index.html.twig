@@ -60,13 +60,13 @@
 					{{voiture.places}}
 					Places
 					{% if voiture.disponibite == 1 %}
-						<a href="/agent/cars/louer/{{voiture.id}}" style="font-size: 16px">Louer</a>
+						<a href="/agent/car/louer/{{voiture.id}}" style="font-size: 16px">Louer</a>
 					{% else %}
-						<a href="/agent/cars/rendre/{{voiture.id}}" style="font-size: 16px">Rendre</a>
+						<a href="/agent/car/rendre/{{voiture.id}}" style="font-size: 16px">Rendre</a>
 					{% endif %}
 				</li>
-			</ul>
-		{% endfor %}
+			{% endfor %}
+		</ul>
 	{% endif %}
 
 {% else %}

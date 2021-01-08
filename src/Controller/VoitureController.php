@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Voiture;
 use App\Entity\Agence;
+use App\Entity\Client;
+use App\Entity\Contrat;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -163,24 +165,59 @@ class VoitureController extends AbstractController
   }
 
   /**
-   * @Route("/agent/cars/louer/{id}")
+   * @Route("/agent/car/louer/{id}")
    * @Method({"GET", "POST"})
    */
   public function louer(Request $request, $id)
   {
+    $contrat = new Contrat();
+
+    $form = $this->createFormBuilder($contrat)
+      ->add('type', TextType::class, array('attr' => array('class' => 'form-control')))
+      ->add('dateRetour', DateType::class, array('attr' => array('class' => 'form-control')))
+      ->add('dateDepart', DateType::class, array('attr' => array('class' => 'form-control')))
+      ->add('id_client', EntityType::class, [
+        'placeholder' => 'Choose a client',
+        'required' => true,
+        'class' => Client::class,
+        'choice_attr' => function (Client $client) {
+          return [
+            'class' => 'custom_class_' . $client->getId(),
+            'data-post-title' => $client->getId()
+          ];
+        },
+        'attr' => array('class' => 'form-control'),
+      ])
+      ->add('save', SubmitType::class, array(
+        'label' => 'Create',
+        'attr' => array('class' => 'btn btn-primary mt-3')
+      ))
+      ->getForm();
+
+    $form->handleRequest($request);
     $car = $this->getDoctrine()->getRepository(Voiture::class)->find($id);
     $car->setDisponibite(false);
+    $contrat->setIdVoiture($car->getMatricule());
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->flush();
 
     $response = new Response();
     $response->send();
 
-    return $this->redirectToRoute('car_list');
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($contrat);
+        $entityManager->flush();
+        return $this->redirectToRoute('car_list');
+    }
+
+    return $this->render('voitures/new.html.twig', array(
+      'form' => $form->createView()
+    ));
   }
 
   /**
-   * @Route("/agent/cars/rendre/{id}")
+   * @Route("/agent/car/rendre/{id}")
    * @Method({"GET", "POST"})
    */
   public function rendre(Request $request, $id)
