@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All Contrats{% endblock %}
+
+{% block body %}
+    <div style="display: flex;justify-content: space-between;width: 100%;">
+		<h1>All Contrats</h1>
+		<span/>
+		{% if app.user.roles[0] == "ROLE_AGENT" %}
+      <a href="/agent/contrat/new">
+        <button>+ Add Contrat</button>
+      </a>
+		{% endif %}
+	</div>
+  {% if contrats %}
+    <table id="contrats" class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>type</th>
+          <th>client</th>
+          <th>voiture</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for contrat in contrats %}
+          <tr>
+            <td>{{ contrat.id }}</td>
+            <td>{{ contrat.type }}</td>
+            <td>{{ contrat.client }}</td>
+            <td>{{ contrat.voiture }}</td>
+            <td>
+              <a href="/agent/contrat/{{ contrat.id }}" class="btn btn-black">Show</a>
+              <a href="/agent/contrat/edit/{{ contrat.id }}" class="btn btn-light">Edit</a>
+              <a href="/agent/contrat/delete/{{ contrat.id }}" class="btn btn-danger delete-contrat" data-id="{{ contrat.id }}">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="mt-4">No contrats to display</p>
+  {% endif %}
+{% endblock %}

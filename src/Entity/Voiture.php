@@ -58,7 +58,7 @@ class Voiture
     private $datemiseencirculation;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $idAgence;
 
@@ -163,12 +163,12 @@ class Voiture
         return $this;
     }
 
-    public function getIdAgence(): ?int
+    public function getIdAgence(): ?string
     {
         return $this->idAgence;
     }
 
-    public function setIdAgence(int $idAgence): self
+    public function setIdAgence(string $idAgence): self
     {
         $this->idAgence = $idAgence;
 

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Client details
+{% endblock %}
+
+{% block body %}
+	<h1>Name:
+		{{ client.nom }}</h1>
+	<p>N°permis:
+		{{ client.npermis }}</p>
+	<p>tel:
+		{{ client.tel }}</p>
+	<p>Ville:
+		{{ client.ville }}</p>
+	<hr>
+	<a href="/agent/clients">Go Back</a>
+{% endblock %}
