@@ -24,7 +24,7 @@ class MainController extends AbstractController
       'Disponibilite' => true,
     ]);
     $notAvailableCars = $this->getDoctrine()->getRepository(Voiture::class)->findBy([
-      'Disponibilite' => true,
+      'Disponibilite' => false,
     ]);
     $factures = $this->getDoctrine()->getRepository(Facture::class)->findBy([
       'payee' => false,

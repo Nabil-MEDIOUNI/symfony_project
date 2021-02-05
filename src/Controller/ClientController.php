@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 class ClientController extends AbstractController
 {
@@ -48,7 +49,10 @@ class ClientController extends AbstractController
             ->getForm();
 
         $form->handleRequest($request);
-
+        $get_client = $this->getDoctrine()->getManager()->getRepository(Client::class)->findOneBy(['Nom' => $form->get('nom')->getData()]);
+        if ($get_client) {
+            return $this->redirectToRoute('client_list');
+        }
         if ($form->isSubmitted() && $form->isValid()) {
             $client = $form->getData();
 

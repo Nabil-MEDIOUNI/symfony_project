@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,7 +27,7 @@ class AccountController extends AbstractController
   }
 
   /**
-   * @Route("/admin/account/new", name="new_user")
+   * @Route("/admin/user/new", name="new_user")
    * Method({"GET", "POST"})
    */
   public function new(Request $request)
@@ -35,6 +36,13 @@ class AccountController extends AbstractController
 
     $form = $this->createFormBuilder($user)
       ->add('email', TextType::class, array('attr' => array('class' => 'form-control')))
+      ->add('roles', ChoiceType::class, [
+        'choices'  => [
+          'Agent' => 'ROLE_AGENT',
+          'Client' => 'ROLE_CLIENT',
+        ],
+        'attr' => array('class' => 'form-control')
+      ])
       ->add('password', PasswordType::class, array('attr' => array('class' => 'form-control')))
       ->add('save', SubmitType::class, array(
         'label' => 'Create',
@@ -70,6 +78,13 @@ class AccountController extends AbstractController
 
     $form = $this->createFormBuilder($user)
       ->add('email', TextType::class, array('attr' => array('class' => 'form-control')))
+      ->add('role', ChoiceType::class, [
+        'choices'  => [
+          'Agent' => ['ROLE_AGENT'],
+          'Client' => ['ROLE_CLIENT'],
+        ],
+        'attr' => array('class' => 'form-control')
+      ])
       ->add('save', SubmitType::class, array(
         'label' => 'Update',
         'attr' => array('class' => 'btn btn-primary mt-3')

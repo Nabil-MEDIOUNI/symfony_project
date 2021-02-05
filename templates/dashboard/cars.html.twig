@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 
 {% block body %}
-<br />
+	<br/>
 	{% if availableCars %}
+		<h1>All Available Cars</h1>
 		<table id="availableCars" class="table table-striped">
 			<thead>
 				<tr>
@@ -12,7 +13,9 @@
 					<th>Places</th>
 					<th>Availability</th>
 					<th>Agency</th>
+					{% if app.user.roles[0] == "ROLE_ADMIN" %}
 					<th>Actions</th>
+					{% endif %}
 				</tr>
 			</thead>
 			<tbody>
@@ -28,11 +31,13 @@
 							<td>Yes</td>
 						{% endif %}
 						<td>{{ voiture.idAgence }}</td>
+						{% if app.user.roles[0] == "ROLE_ADMIN" %}
 						<td>
 							<a href="/admin/car/{{ voiture.id }}" class="btn btn-dark">Show</a>
 							<a href="/admin/car/edit/{{ voiture.id }}" class="btn btn-light">Edit</a>
 							<a href="/admin/car/delete/{{ voiture.id }}" class="btn btn-danger delete-voiture" data-id="{{ voiture.id }}">Delete</a>
 						</td>
+						{% endif %}
 					</tr>
 				{% endfor %}
 			</tbody>
@@ -41,9 +46,10 @@
 {% else %}
 	<h1>0 Available Cars Was Found!</h1>
 {% endif %}
-<br />
-<br />
+<br/>
+<br/>
 {% if notAvailableCars %}
+	<h1>All Cars Not Available</h1>
 	<table id="notAvailableCars" class="table table-striped">
 		<thead>
 			<tr>
@@ -53,7 +59,9 @@
 				<th>Places</th>
 				<th>Availability</th>
 				<th>Agency</th>
-				<th>Actions</th>
+				{% if app.user.roles[0] == "ROLE_ADMIN" %}
+					<th>Actions</th>
+				{% endif %}
 			</tr>
 		</thead>
 		<tbody>
@@ -69,11 +77,13 @@
 						<td>Yes</td>
 					{% endif %}
 					<td>{{ voiture.idAgence }}</td>
-					<td>
-						<a href="/admin/car/{{ voiture.id }}" class="btn btn-dark">Show</a>
-						<a href="/admin/car/edit/{{ voiture.id }}" class="btn btn-light">Edit</a>
-						<a href="/admin/car/delete/{{ voiture.id }}" class="btn btn-danger delete-voiture" data-id="{{ voiture.id }}">Delete</a>
-					</td>
+					{% if app.user.roles[0] == "ROLE_ADMIN" %}
+						<td>
+							<a href="/admin/car/{{ voiture.id }}" class="btn btn-dark">Show</a>
+							<a href="/admin/car/edit/{{ voiture.id }}" class="btn btn-light">Edit</a>
+							<a href="/admin/car/delete/{{ voiture.id }}" class="btn btn-danger delete-voiture" data-id="{{ voiture.id }}">Delete</a>
+						</td>
+					{% endif %}
 				</tr>
 			{% endfor %}
 		</tbody>

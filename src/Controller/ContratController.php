@@ -5,14 +5,12 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\Contrat;
 use App\Entity\Voiture;
-use Doctrine\DBAL\Types\IntegerType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType as TypeIntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Response;
@@ -121,7 +119,7 @@ class ContratController extends AbstractController
     $car = $this->getDoctrine()->getRepository(Voiture::class)->findOneBy([
       'Matricule' => $contrat->getIdVoiture(),
     ]);
-    $car->setDisponibite(true);
+    $car->setDisponibilite(true);
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->remove($contrat);
     $entityManager->flush();

@@ -18,12 +18,12 @@ class Voiture
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, unique=true)
      */
     private $Matricule;
 
     /**
-     * @ORM\Column(type="string", length=15, unique=true)
+     * @ORM\Column(type="string", length=15)
      */
     private $Marque;
 
